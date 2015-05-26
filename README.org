@@ -1,24 +1,18 @@
 * Child Games
 
 ** Games
-*** tic-tac-toe
-*** bubble pop
-*** matching
-*** dressing the character
-*** how many
-*** seasons
+- tic-tac-toe
+- bubble pop
+- matching
+- dressing the character
+- how many
+- seasons
 
 * Characters
-** Elephant of the savannah
-*** TODO Draw elephant
-** Penguin of the artic
-*** TODO Draw penguin
-** Rabbit of the woods
-*** TODO Draw rabbit
-** Whale of the ocean
-*** TODO Draw whale
-** Lizard of the desert
-*** TODO Draw lizard
-** Goat of the mountains
-*** TODO Draw goat
-
+** TODO Draw characters
+- [ ] Elephant of the savannah
+- [ ] Penguin of the artic
+- [ ] Rabbit of the woods
+- [ ] Whale of the ocean
+- [ ] Lizard of the desert
+- [ ] Goat of the mountains
