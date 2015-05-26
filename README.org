@@ -27,6 +27,21 @@ name and/or other information (age/gender).
 - How Many? (how-many.html)
 - Face-Torso-Legs (face-torso-legs.html)
 
+** Technical requirements
+
+*** Rendering
+Still not sure if I should use HTML5 canvas or if I should make the
+games in straight HTML5+CSS for rendering, or a combination of both.
+I should judge by performance of common browsers.
+
+*** Responsive
+I'm not sure how much the site needs reformat to fit different screen
+sizes.  The main difference, I would think, will be how large the
+navigation icons will be.  On desktop/laptop screen sizes, I would
+want to use that extra horizontal space somehow, so with larger,
+animated, and more interactive graphics.  On mobile devices a
+different method should be used.
+
 * Characters
 
 ** TODO Draw characters
