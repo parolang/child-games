@@ -34,6 +34,9 @@ Still not sure if I should use HTML5 canvas or if I should make the
 games in straight HTML5+CSS for rendering, or a combination of both.
 I should judge by performance of common browsers.
 
+- See http://diveintohtml5.info/canvas.html
+- See http://blog.teamtreehouse.com/brief-introduction-svg
+
 *** Responsive
 I'm not sure how much the site needs reformat to fit different screen
 sizes.  The main difference, I would think, will be how large the
@@ -41,6 +44,19 @@ navigation icons will be.  On desktop/laptop screen sizes, I would
 want to use that extra horizontal space somehow, so with larger,
 animated, and more interactive graphics.  On mobile devices a
 different method should be used.
+
+*** Audio?
+I know I'll need animations and a highly interactive interface, but
+I'll leave it an open question whether I should incorporate audio.
+
+*** Saving
+I'll need a method for saving the state of the game.  For instance,
+when the player puts different clothes on one of the characters, it
+would be nice if this change is reflected on the rest of the
+site. Should I use cookies or what exactly is HTML5 storage?
+
+- See http://diveintohtml5.info/storage.html
+- See http://blog.teamtreehouse.com/html5-local-storage
 
 * Characters
 
