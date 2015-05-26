@@ -10,9 +10,31 @@
 
 * Characters
 ** TODO Draw characters
+- The characters need to be drawn from different angles and with
+different expressions for animation purposes.
+- Needs to look good both small, icon-size, and close-up.
+
 - [ ] Elephant of the savannah
 - [ ] Penguin of the artic
 - [ ] Rabbit of the woods
 - [ ] Whale of the ocean
 - [ ] Lizard of the desert
 - [ ] Goat of the mountains
+
+* Games
+** Tic Tac Toe
+Play "Tic Tac Toe" with characters instead of X's and O's
+** Bubble Pop
+Popping large and small bubbles on the screen
+** Matching
+Matching items/characters on a grid.  Click on one item, and then
+click another item to match it.
+** Dressing the Character
+Show a large image of a character, and then offer the player clothes
+to put on him/her
+** How Many
+Have the player choose the correct number for the number of objects
+being displayed
+** Face-Torso-Legs
+Have the player choose different combinations of the upper, middle,
+and lower bodies of the characters.
