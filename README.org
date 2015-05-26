@@ -52,7 +52,7 @@ I'll leave it an open question whether I should incorporate audio.
 *** Saving
 I'll need a method for saving the state of the game.  For instance,
 when the player puts different clothes on one of the characters, it
-would be nice if this change is reflected on the rest of the
+would be nice if this change is reflected in the rest of the
 site. Should I use cookies or what exactly is HTML5 storage?
 
 - See http://diveintohtml5.info/storage.html
