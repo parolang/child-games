@@ -1,0 +1,31 @@
+body {
+    background-color: lightgrey;
+}
+
+header {
+ 
+}
+
+main {
+    background-color: white;
+    width: 500px;
+    margin: auto;
+}
+
+nav#main-menu ul li {
+    list-style-type: none;
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    text-align: center;
+    margin: 1em;
+    box-sizing: border-box;
+}
+
+nav#main-menu ul li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    background-color: yellow;
+}
+    
