@@ -57,6 +57,9 @@ site. Should I use cookies or what exactly is HTML5 storage?
 
 - See http://diveintohtml5.info/storage.html
 - See http://blog.teamtreehouse.com/html5-local-storage
+  
+*** Layout
+Fixed positioning in CSS
 
 * Characters
 
@@ -68,10 +71,11 @@ small, icon-size, and close-up.
 - [ ] Elephant of the savannah
 - [ ] Penguin of the artic
 - [ ] Rabbit of the woods
+
 - [ ] Whale of the ocean
 - [ ] Lizard of the desert
 - [ ] Goat of the mountains
-
+  
 * Games
 
 ** Tic Tac Toe

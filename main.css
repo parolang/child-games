@@ -1,3 +1,21 @@
+/* 
+   body
+   ├─header
+   │ └─h1
+   └─main
+     ├─nav#main-menu
+     │ └─ul
+     │   └─li
+     │     └─a
+     └─section
+       ├─h2
+       └─div#choose-character
+         ├─div#elephant
+         ├─div#penguin
+         ├─etc...
+ */
+
+
 body {
     background-color: lightgrey;
 }
@@ -28,4 +46,3 @@ nav#main-menu ul li a {
     display: block;
     background-color: yellow;
 }
-    
