@@ -29,6 +29,10 @@
 
  */
 
+body {
+  font-family: 'Shadows Into Light', cursive;
+}
+
 header {
   display: block;
   position: fixed;
@@ -44,6 +48,8 @@ header h1 {
   color: #ff8b00;
   background-color: #ffe000;
   padding: .5em;
+  box-shadow: 5px -5px 5px 0px green;
+  font-family: 'Fontdiner Swanky', cursive;
 }
 
 main {
@@ -60,6 +66,7 @@ nav#main-menu ul li {
   width: 100px;
   height: 100px;
   background-color: #f41971;
+  border-radius: 20%;
   text-align: center;
   margin: 1em;
   box-sizing: border-box;
@@ -105,8 +112,9 @@ section {
   left: 200px;
   right: 200px;
   bottom: 50px;
-  border-color: black;
-  border-style: solid;
+  background-color: #bfff33;
+  box-shadow: inset 5px -5px 15px 5px #a2d82b,
+                 inset -5px 5px 15px 5px #a2d82b;
 }
 
 section h2 {

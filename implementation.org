@@ -1,0 +1,98 @@
+* Implementation notes for Munchkin Academy
+
+** Tic Tac Toe
+Tic tac toe board should already be set up in HTML.  Each cell should
+start off blank.  Here's what's needed:
+
+*** Starting the game
+Initialize
+
+**** Generate a list of win combinations at the beginning of game
+This is so that the win combinations can be crossed off, one-by-one,
+as the game progresses.  Need to cross-reference between set of cells
+and set of wins.  Each cell is associated with a set of wins.  Each
+win is associated with a set of cells.
+
+Cells are either on a diagonal or not.  If the cell isn't on a
+diagonal, then there are only two possible wins: vertically and
+horizontally.  If the cell is on a diagonal, then it can win
+vertically, horizontally, and diagonally.  There are five diagonal
+cells and four non-diagonal cells.
+
+A win (winning combination) is either horizontal, vertical, or
+diagonal.  There are three horizontal wins, three vertical wins, and
+two diagonal wins.
+
+| X | O | X |
+|---+---+---|
+| X | X | O |
+|---+---+---|
+| O | O | X | 
+
+There needs to be separate set of wins for both X and O.  
+
+
+*** Placing an X in the cell that you choose
+
+*** Computer takes it's turn
+For now, have the computer choose an empty cell at random.  Later some
+thought should go into actually making it /hard/ for the player to
+lose.  This is for little kids after all.
+
+*** Finding out who wins when appropriate
+Shouldn't have to search every win combination on every turn.  In
+fact, might be easiest to generate a list of win combinations at the
+beginning of the game, and then rule them out one by one.
+
+**** On each turn, determine whether the player wins
+
+**** If the player doesn't win, cross out impossible win combinations
+
+
+
+*** Showing a win or lose screen and giving option to start over
+
+
+** Bubble Pop
+Should I use HTML Canvas?  Generated canvas bubbles might be more
+boring than using animated images.  If I'm drawing bubbles, the
+non-canvas method might be worse.
+
+** Matching
+Basically add elements to the div for this game. Items should be
+spaced out appropriately on the screen.  Each clicked item should look
+"selected", probably by coloring the background of the image, or by
+placing a translucent box stacked on top of the item.
+
+Two possible "modes" for the game.  The easier mode will have the
+first item already selected, and then the matching item just needs to
+be selected.  This should be easier for small children to use.  The
+more difficult mode will have the player select both items that match.
+This might simply be harder because of the difficulty in unselecting
+the desired item, and then selecting the new item.  You can't just
+select the desired object after selecting two items that don't match.
+This might be too difficult for the smallest children.
+
+** Dressing the character
+Shouldn't be too hard.  Have the player drag images on top of other
+images in the game.  Use transparency for clothes like jackets to
+"look like" they wrap around the character.  If I want to get fancy, I
+could have some of the clothes be two-layered so that the jacket looks
+whole until it is dragged over the character.  The front of the jacket
+is dragged in front of the character, but the back of the jacket
+disappears behind the character.
+
+** How many?
+Space out items across the screen evenly.  Have a clickable row of
+numbers.  Player counts the items, and clicks the number.  Each win is
+reinforced positively somehow.  Maybe just a smiley face or a star in
+the center of the screen.
+
+** Face Torso Legs
+Three rows of images.  The center column of images lines up form a
+complete character, with head, torso, and legs.  Arrows on each side
+of the rows that can be clicked on to slide the row left or right.
+Each row is a cycle, so that when the image disappears off of one side
+of the screen, it reappears on the other side.  If there are enough
+images, they might cycle "behind" the screen until they come back
+around again.  There's really no "winning" in this game.
