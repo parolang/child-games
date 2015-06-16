@@ -3,6 +3,7 @@
 
 .cell {
   width: 0.85em;
+  height: 0.85em;
   border-right-width: 0.1em;
   padding: 0.05em;
   /*   box-sizing: border-box; */
