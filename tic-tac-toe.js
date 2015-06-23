@@ -1,12 +1,5 @@
 // Tic Tac Toe
 
-var cellIds = [[" ", " ", " "],
-               [" ", " ", " "],
-               [" ", " ", " "]];
-
-var board = [[" ", " ", " "], 
-             [" ", " ", " "], 
-             [" ", " ", " "]];
 
 var extractNum = function(n) {
     return function(str) {
@@ -22,100 +15,138 @@ var rowNum = extractNum(2);
 // E.g., #R1C2 --> 2
 var colNum = extractNum(4);
 
-var coord2id = function() {
-    return;
+var id2coord = function (id) {
+    // An id-type is of the form "#r0c1"
+    var coord[0] = rowNum(id);
+    var coord[1] = colNum(id);
+    
+    return coord;
+#+END_SRC
+
 };
 
-var id2coord = function() {
-    return;
+var coord2id = function (coord) {
+    // Decide here, an id-type is of the form "#r0c1".
+    var id = "#r"+coord[0]+"c"+coord[1];
+    return id;
 };
 
-var isWin = function(player, cell) {
-    // This function determines if the player (either "X" or "O") will
-    // win after putting their mark in the cell (designated by #id).
-    var coord = [rowNum(cell),colNum(cell)];
-    console.log("coord[0]: ", coord[0], "coord[1]: ", coord[1]);
-    var isHorzWin = function() {
-        var same=true;
-        var id;
-        var cellContent;
-        
-        for( var i=0; i<3; i+=1) {
-            id = "#r"+coord[0]+"c"+i;
-            cellContent=$(id).text();
-            $(id).css("background-color", "orange");
-            same = same && (cellContent===player);
-            console.log(id,cellContent, same);
-        };
-        return same;
-    };
+var isDiagWin = function (cellId, player) {
+    // Lazy method
 
-    var isVertWin = function() {
-        var same;
-        var id;
-        
-        for( var i=0; i<3; i+=1) {
-            id = "#r"+i+"c"+coord[1];
-            cellContent=$(id).text();
-            same = same && (cellContent===player);
-        };
-        return same;
-    };
+    // First define array of all diagonal win combinatons. There are
+    // only two.
+    var win = [[coord2id(0,0), coord2id(1,1), coord2id(2,2)],
+               [coord2id(2,0), coord2id(1,1), coord2id(0,2)]]; 
 
-    var isDiagWin = function() {
-        var same;
-        var id;
-        
-        for( var i=0; i<3; i+=1) {
-            id = "#r"+i+"c"+i;
-            cellContent=$(id).text();
-            same = same && (cellContent===player);
-        };
-        
-        for( var i=0; i<3; i+=1) {
-            id = "#r"+i+"c"+(3-i);
-            cellContent=$(id).text();
-            same = same && (cellContent===player);
-        };
-        return same;
-    };
+    // If all three cells are the players mark, then return true.
+    var playerWin = true;
 
-    return isHorzWin() || isVertWin() || isDiagWin();
+    for (var i=0; i<win.length; i+=1) {
+        playerWin = playerWin && ($(win[i][0]).text === player);
+        playerWin = playerWin && ($(win[i][1]).text === player);
+        playerWin = playerWin && ($(win[i][2]).text === player);
+    }
+
+    return playerWin;
+};
+
+var isVertWin = function (cellId, player) {
+    // Lazy method
+
+    // First define array of all vertical win combinatons. There are
+    // only three.
+    var win = [[coord2id(0,0), coord2id(1,0), coord2id(2,0)],
+               [coord2id(0,1), coord2id(1,1), coord2id(2,1)],
+               [coord2id(0,2), coord2id(1,2), coord2id(2,2)]];
+
+    // If all three cells are the players mark, then return true.
+    var playerWin = true;
+
+    for (var i=0; i<win.length; i+=1) {
+        playerWin = playerWin && ($(win[i][0]).text === player);
+        playerWin = playerWin && ($(win[i][1]).text === player);
+        playerWin = playerWin && ($(win[i][2]).text === player);
+    }
+
+    return playerWin;
+};
+
+var isHorzWin = function (cellId, player) {
+    // Lazy method                 
+
+    // First define array of all horizontal win combinatons. There are
+    // only three.
+    var win = [[coord2id(0,0), coord2id(0,1), coord2id(0,2)],
+               [coord2id(1,0), coord2id(1,1), coord2id(1,2)],
+               [coord2id(2,0), coord2id(2,1), coord2id(2,2)]];
+
+
+    // If all three cells are the players mark, then return true.
+    var playerWin = true;
+
+    for (var i=0; i<win.length; i+=1) {
+        playerWin = playerWin && ($(win[i][0]).text === player);
+        playerWin = playerWin && ($(win[i][1]).text === player);
+        playerWin = playerWin && ($(win[i][2]).text === player);
+    }
+
+    return playerWin;
+};
+
+var isWin = function (cellId, player) {
+    // Return true if the player won horizontally, vertically, or
+    // diagonally. Otherwise return false.
+
+    var playerWin = false;
+
+    playerWin = playerWin || isHorzWin(cellId, player);
+    playerWin = playerWin || isVertWin(cellId, player);
+    playerWin = playerWin || isDiagWin(cellId, player);
+
+    return playerWin;
+};
+
+var cellClick = function () {
+    // Click handler
+
+    // We need the HTML id of the cell that was clicked.
+    var id = $(this).attr("id");
+
+    // We also need the text content of the clicked cell.
+    var cellContent = $(this).text();
+
+    // If the cell is empty, change it to an X.
+    if (cellContent===" ") {
+        $(this).text("X");
+    }
+
+    // Did the player win?  If so, just write "Win!" to the console
+    // for now.
+    if (isWin(cellId, "X")) {
+        console.log("Win!");
+    }
 };
 
 var idCells = function () {
     // This function needs to find each .cell element, and give them
     // id's according to their row and position #r0c0, #r0c1, #r0c2,
     // etc.  Also initialize cellIds and board arrays.
-        
+    
     $(".row").each(function(i,row) {
         $(row).find(".cell").each(function(j,col) {
             var id = "r"+i.toString()+"c"+j.toString();
             
             $(col).attr("id", id);
-            cellIds[i][j] = id;
-            board[i][j] = " ";
         });
     });
-    console.log("idCells called!");
 };
 
-var cellClick = function (event) {
-    var id = $(this).attr("id");
-    var cellContent = $(this).text();
-    
-    if (cellContent==="X") {
-        $(this).text(" ");
-    } else {
-        $(this).text("X");
-    }
-    console.log($(this).text());
-    if (isWin("X","#"+$(this).attr("id"))) {
-        console.log("Win!");
-    };
-};
+// Initialize game
 
+// First bind cellClick as click handler.
 $(".cell").click(cellClick);
+
+// Then call idCells to add HTML id to each cell div.
 idCells();
-console.log(board);
-console.log(cellIds);
+
