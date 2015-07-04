@@ -37,13 +37,15 @@ var isDiagWin = function (cellId, player) {
     // First define array of all diagonal win combinatons. There are
     // only two.
     var win = [[coord2id(0,0), coord2id(1,1), coord2id(2,2)],
-               [coord2id(2,0), coord2id(1,1), coord2id(0,2)]]; 
+               [coord2id(2,0), coord2id(1,1), coord2id(0,2)]];
+    console.log("Diag win: ", win);
 
     // If all three cells are the players mark, then return true.
     var allSame = true;
     var someWin = false;
 
     for (var i=0; i<win.length; i+=1) {
+        allSame = true;         // Reset allSame on each iteration
         allSame = allSame && ($(win[i][0]).text() === player);
         allSame = allSame && ($(win[i][1]).text() === player);
         allSame = allSame && ($(win[i][2]).text() === player);
@@ -61,12 +63,14 @@ var isVertWin = function (cellId, player) {
     var win = [[coord2id(0,0), coord2id(1,0), coord2id(2,0)],
                [coord2id(0,1), coord2id(1,1), coord2id(2,1)],
                [coord2id(0,2), coord2id(1,2), coord2id(2,2)]];
+    console.log("Vert win: ", win);
 
     // If all three cells are the players mark, then return true.
     var allSame = true;
     var someWin = false;
 
     for (var i=0; i<win.length; i+=1) {
+        allSame = true;         // Reset allSame on each iteration
         allSame = allSame && ($(win[i][0]).text() === player);
         allSame = allSame && ($(win[i][1]).text() === player);
         allSame = allSame && ($(win[i][2]).text() === player);
@@ -85,13 +89,14 @@ var isHorzWin = function (cellId, player) {
                [coord2id(1,0), coord2id(1,1), coord2id(1,2)],
                [coord2id(2,0), coord2id(2,1), coord2id(2,2)]];
 
-    console.log("win: ", win);
+    console.log("Horz win: ", win);
 
     // If all three cells are the players mark, then return true.
     var allSame = true;
     var someWin = false;
 
     for (var i=0; i<win.length; i+=1) {
+        allSame = true;         // Reset allSame on each iteration
         allSame = allSame && ($(win[i][0]).text() === player);
         allSame = allSame && ($(win[i][1]).text() === player);
         allSame = allSame && ($(win[i][2]).text() === player);
@@ -142,6 +147,7 @@ var cellClick = function () {
     // for now.
     if (isWin(cellId, "X")) {
         console.log("Win!");
+        alert("You win!");
     }
 };
 
