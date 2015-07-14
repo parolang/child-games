@@ -112,15 +112,31 @@ var isWin = function (cellId, player) {
 
     var playerWin = false;
 
-    playerWin = playerWin || isHorzWin(cellId, player);
-    console.log("isHorzWin(cellId, player): ", isHorzWin(cellId, player));
-    playerWin = playerWin || isVertWin(cellId, player);
-    console.log("isVertWin(cellId, player): ", isVertWin(cellId, player));
-    playerWin = playerWin || isDiagWin(cellId, player);
-    console.log("isDiagWin(cellId, player): ", isDiagWin(cellId, player));
+    playerWin = playerWin || searchCells(horzWin, "X").length !== 0;
+    playerWin = playerWin || searchCells(vertWin, "X").length !== 0;
+    playerWin = playerWin || searchCells(diagWin, "X").length !== 0;
 
+    if (playerWin) {
+        var matchCells = [];
+        matchCells = matchCells.concat(searchCells(horzWin, "X"),
+                                       searchCells(vertWin, "X"),
+                                       searchCells(diagWin, "X"));
+        
+        for(var i=0; i<matchCells.length; i++) {
+            console.log("matchCells[i]: ", matchCells[i]);            
+            $(matchCells[i][0]).addClass("win");
+            console.log("matchCells[i][0]: ", matchCells[i][0]);
+            $(matchCells[i][1]).addClass("win");
+            console.log("matchCells[i][1]: ", matchCells[i][1]);
+            $(matchCells[i][2]).addClass("win");
+            console.log("matchCells[i][2]: ", matchCells[i][2]);
+        }
+    }
+    
     return playerWin;
 };
+
+
 
 var cellClick = function () {
     // Click handler
