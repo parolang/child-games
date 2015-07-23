@@ -34,5 +34,9 @@
 }
 
 .win {
+  color: blue;
+}
+
+.lose {
   color: red;
 }
