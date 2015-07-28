@@ -1,29 +1,3 @@
-function draw_b() {
-    var bubble_canvas = document.getElementById("bubble-pop");
-    var bubble_context = bubble_canvas.getContext("2d");
-    bubble_context.fillRect(50, 25, 150, 100);
-    for (var x=0.5; x<500; x+=10) {
-        bubble_context.moveTo(x,0);
-        bubble_context.lineTo(x,375);
-    }
-
-    for (var y=0.5; y<375; y+=10) {
-        bubble_context.moveTo(0,y);
-        bubble_context.lineTo(500,y);
-    }
-
-    bubble_context.strokeStyle = "#eee";
-    bubble_context.stroke();
-}
-
-var bubblesList = [];           // List of bubble objects
-var maxBubbles = 8;             // Produce no more bubbles
-var minBubbles = 2;             // Produce more bubbles
-var maxRadius = 250;
-var minRadius = 50;
-var maxSpeed = 20;
-var minSpeed = 5;
-
 function randomBetween(first, second) {
     return Math.floor(Math.random()*(first - second)) + second + 1;
 }
@@ -41,32 +15,113 @@ function randomDirection() {
     return direction;
 }
 
+function initialPosition(direction, centerX, centerY, radius) {
+    // Find a position just outside of the canvas, where immediately
+    // on the next step, the bubble will be partially drawn.
+
+    // First find how many steps would be required to get to the
+    // center from each of the edges.
+    var stepList = [];              // Array of step values for each edge
+    var step;
+    var edge;
+
+    // Edge0 is the line x=0
+    stepList[0] = (-centerX / direction.x);
+    // Edge1 is the line y=0
+    stepList[1] = (-centerY / direction.y);
+    // Edge2 is the line x=width
+    stepList[2] = (canvasWidth - centerX) / direction.x;
+    // Edge3 is the line y=height
+    stepList[3] = (canvasHeight - centerY) / direction.y;
+
+    function negative(num) { return num < 0; }
+
+    // Find the highest negative value of step.
+    step = Math.max.apply(null,stepList.filter(negative));
+    edge = stepList.indexOf(step);
+
+    // Now find the point on the bubble's path that is a given
+    // distance (bubble radius) from the chosen edge.  This depends on
+    // which edge is chosen.
+    var x, y;
+    switch (edge) {
+    case 0:                     // line x = 0
+        // radius units above this line
+        step = (-centerX - radius ) / direction.x;
+        x = 0;
+        y = direction.y * step + centerY;
+        break;
+
+    case 1:                     // line y = 0
+        step = (-centerY - radius) / direction.y;
+        x = direction.x * step + centerX;
+        y = 0;
+        break;
+
+    case 2:                     // line x = width
+        step = (radius + canvasWidth - centerX) / direction.x;
+        x = canvasWidth;
+        y = direction.y * step + centerY;
+        break;
+
+    case 3:                     // line y = height
+        step = (radius + canvasHeight - centerY) / direction.y;
+        x = direction.x * step + centerX;
+        break;
+    }
+
+    var pos = {};
+    pos.x = x;
+    pos.y = y;
+
+    console.log("pos: ", pos);    
+    return pos;
+}
+
 function makeBubble() {
-    var dir = randomDirection();
-    var slope = dir.x / dir.y;
+    var direction = randomDirection();
+    var slope = direction.x / direction.y;
     var radius = randomRadius();
     var bubble = {};
-    var pos = {};
-    // pos.x = -slope * radius     
+    var pos = initialPosition(direction, canvasWidth/2, canvasHeight/2, radius);
+    bubble.initPos = pos;
+    bubble.direction = direction;
+    bubble.radius = radius;
+    bubble.startTime = Date.now();
+    bubble.popped = false;
+    return bubble;
 }
 
 function clearCanvas() {
      bubble_context.clearRect(0, 0, bubble_canvas.width, bubble_canvas.height);
 }
 
-function calcBubbles(timestampe) {
-    
-}
-
 function drawBubbles() {
-    
+    // iterate through bubblesList, calculate position according to
+    // time, and draw each bubble on canvas
+    var timeNow = Date.now();
+    var bubbleAge;
+    var bubble;
+    for (var i = 0; i < bubblesList.length; i += 1) {
+        bubble = bubblesList[i];
+        if (!bubble.popped) {
+            bubbleAge = timeNow - bubble.startTime;
+            x = bubble.initPos.x + bubble.direction.x * bubbleAge/1000;
+            y = bubble.initPos.y + bubble.direction.y * bubbleAge/1000;
+            radius = bubble.radius;
+            bubble_context.beginPath();
+            bubble_context.arc(x, y, radius, 0, Math.PI*2, false);
+            bubble_context.linewidth=5;
+            bubble_context.strokeStyle="black";
+            bubble_context.stroke();
+        }
+    }
 }
 
 function redrawCanvas (timestamp) {
     clearCanvas();
-    calcBubbles(timestamp);
     drawBubbles();
-    requestAnimationFrame(redrawCanvas);
+    window.requestAnimationFrame(redrawCanvas);
 }
 
 function getMousePos(canvas, e) {
@@ -77,10 +132,27 @@ function getMousePos(canvas, e) {
     };
 }      
 
+var bubblesList = [];           // List of bubble objects
+
+var maxBubbles = 8;             // Produce no more bubbles
+var minBubbles = 2;             // Produce more bubbles
+
+var maxRadius = 50;
+var minRadius = 5;
+
+var maxSpeed = 20;
+var minSpeed = 5;
+
 var bubble_canvas = document.getElementById("bubble-pop");
 var bubble_context = bubble_canvas.getContext("2d");
 
+var canvasWidth = bubble_canvas.width;
+var canvasHeight = bubble_canvas.height;
+
+window.requestAnimationFrame(redrawCanvas);
+
 bubble_canvas.addEventListener("click", function (e) {
+    bubblesList.push(makeBubble());
     console.log(getMousePos(bubble_canvas, e));
 }, false); 
 
