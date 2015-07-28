@@ -186,7 +186,7 @@ window.setInterval(function() {
 bubble_canvas.addEventListener("click", function (e) {
     var pos = getMousePos(bubble_canvas, e);
     bubbleNum = insideWhichBubble(pos.x, pos.y);
-    if (bubbleNum>0) {
+    if (bubbleNum>=0) {
         bubblesList[bubbleNum].popped = true;
         console.log("Pop!");
     }
