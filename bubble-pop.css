@@ -1,6 +1,13 @@
-canvas {
-  border: solid 1px black;
-  margin: auto;
-   /*   width: 100%; */
-  /*   height: 100%; */
+section {
+  text-align: center;
 }
+
+#bubble-pop {
+  display: block;
+  border: solid 1px black;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  height: 500px;
+}
+
