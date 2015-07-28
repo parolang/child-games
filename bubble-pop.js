@@ -67,6 +67,7 @@ function initialPosition(direction, centerX, centerY, radius) {
     case 3:                     // line y = height
         step = (radius + canvasHeight - centerY) / direction.y;
         x = direction.x * step + centerX;
+        y = canvasHeight;
         break;
     }
 
@@ -102,6 +103,7 @@ function drawBubbles() {
     var timeNow = Date.now();
     var bubbleAge;
     var bubble;
+    var gradient;
     for (var i = 0; i < bubblesList.length; i += 1) {
         bubble = bubblesList[i];
         if (!bubble.popped) {
@@ -112,10 +114,37 @@ function drawBubbles() {
             bubble_context.beginPath();
             bubble_context.arc(x, y, radius, 0, Math.PI*2, false);
             bubble_context.linewidth=5;
-            bubble_context.strokeStyle="black";
+            bubble_context.strokeStyle="white";
+            gradient = bubble_context.createRadialGradient(x,y,2*radius/3,
+                                                           x,y,radius);
+            gradient.addColorStop(0, "#8ED6FF");
+            gradient.addColorStop(1, "#004CB3");
+            bubble_context.fillStyle=gradient;
+            bubble_context.fill();
             bubble_context.stroke();
         }
     }
+}
+
+function distance(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2));
+}
+
+function insideWhichBubble(x, y) {
+    var bubble;
+    var bubbleAge;
+    var timeNow = Date.now();
+    for (var i=0; i<bubblesList.length; i+=1) {
+        bubble=bubblesList[i];
+        bubbleAge = timeNow - bubble.startTime;
+        bx = bubble.initPos.x + bubble.direction.x * bubbleAge/1000;
+        by = bubble.initPos.y + bubble.direction.y * bubbleAge/1000;
+        radius = bubble.radius;
+        if (distance(x,y,bx,by) <= radius) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 function redrawCanvas (timestamp) {
@@ -150,9 +179,19 @@ var canvasWidth = bubble_canvas.width;
 var canvasHeight = bubble_canvas.height;
 
 window.requestAnimationFrame(redrawCanvas);
+window.setInterval(function() {
+    bubblesList.push(makeBubble());
+}, 5000);
 
 bubble_canvas.addEventListener("click", function (e) {
-    bubblesList.push(makeBubble());
-    console.log(getMousePos(bubble_canvas, e));
+    var pos = getMousePos(bubble_canvas, e);
+    bubbleNum = insideWhichBubble(pos.x, pos.y);
+    if (bubbleNum>0) {
+        bubblesList[bubbleNum].popped = true;
+        console.log("Pop!");
+    }
+    console.log(pos);
 }, false); 
 
+bubblesList.push(makeBubble());
+bubblesList.push(makeBubble());
